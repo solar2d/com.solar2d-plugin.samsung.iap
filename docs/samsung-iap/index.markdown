@@ -1,42 +1,62 @@
-# googleAnalytics.* &mdash; Google Analytics
+# samsung-iap.* &mdash; Samsung IAP
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__              [Library][api.type.Library]
 > __Revision__          [REVISION_LABEL](REVISION_URL)
-> __Keywords__          analytics, Google Analytics, googleAnalytics
-> __Platforms__			Android, iOS
+> __Keywords__          IAP, Samsung IAP, Samsung In App Purchase
+> __Platforms__			Android
 > __Sample__			[https://github.com/coronalabs/plugins-sample-googleAnalytics](https://github.com/coronalabs/plugins-sample-googleAnalytics)
 > --------------------- ------------------------------------------------------------------------------------------
 
 
 ## Overview
 
-The Google Analytics plugin lets you measure the value of your app across all stages, discover what keeps users engaged, and learn how to make your app more successful.
-
-<div class="guide-notebox-imp">
-<div class="notebox-title-imp">Important</div>
-
-* Stating with Solar2D 2021.3652+, Google Analytics will be using Firebase
+The Samsung IAP plugin let you make in app purchases via Samsung's App Store.
 
 
-## Registration
 
-Before implementing the Google Analytics plugin, you must [setup a Firebase Project](https://console.firebase.google.com) and add __google-services.json__ for Android and/or add __GoogleService-Info.plist__ for iOS, provided in the Firebase console, to project settings to your Solar2D project's root directory alongside `main.lua`.
+## Registration/Setup
+
+In order to test and use In App Purchases you must [setup a Samsung Seller Account](https://seller.samsungapps.com/), create a listing to test and deploy your app for on to the Samsung App Store. Under your [Seller Profile](https://seller.samsungapps.com/member/getSellerDetail.as) be sure add the Samsung email(s) you plan to use to test under License Test. Also you need to upload an initial binary/apk for your app in order to create and test IAP products.
+
+## Gotchas
+
+While Samsung IAP does not require server, in order to verify and get receipt data you can follow [Samsung IAP Server Guide](https://developer.samsung.com/iap/programming-guide/samsung-iap-server-api.html)
 
 
 ## Syntax
 
-	local googleAnalytics = require( "plugin.googleAnalytics" )
+	local store = require( "plugin.samsung.iap" )
 
+## Properties
+
+#### [store.target][plugin.samsung-iap.target]
+
+#### [store.isActive][plugin.samsung-iap.isActive]
+
+#### [store.canLoadProducts][plugin.samsung-iap.canLoadProducts]
+
+#### [store.canMakePurchases][plugin.samsung-iap.canMakePurchases]
 
 ## Functions
 
-#### [googleAnalytics.init()][plugin.googleAnalytics.init]
+#### [store.init()][plugin.samsung-iap.init]
 
-#### [googleAnalytics.logEvent()][plugin.googleAnalytics.logEvent]
+#### [store.loadProducts()][plugin.samsung-iap.loadProducts]
 
-#### [googleAnalytics.logScreenName()][plugin.googleAnalytics.logScreenName]
+#### [store.purchase()][plugin.samsung-iap.purchase]
 
+#### [store.restore()][plugin.samsung-iap.restore]
+
+#### [store.consumePurchase()][plugin.samsung-iap.consumePurchase]
+
+## Events
+
+#### [init][plugin.samsung-iap.event.init]
+
+#### [storeTransaction][plugin.samsung-iap.event.storeTransaction]
+
+#### [productList][plugin.samsung-iap.event.productList]
 
 ## Project Settings
 
@@ -45,15 +65,12 @@ To use this plugin, add an entry into the `plugins` table of `build.settings`. W
 ``````lua
 settings =
 {
-	android =
-	{
-				useGoogleServicesJson = true, -- Needed for Android
-	},
+
 	plugins =
 	{
-		["plugin.googleAnalytics"] =
+		["plugin.samsung.iap"] =
 		{
-			publisherId = "com.coronalabs"
+			publisherId = "com.solar2d"
 		},
 	},		
 }
@@ -65,8 +82,7 @@ settings =
 For Android, the following permissions/features are automatically added when using this plugin:
 
 * `"android.permission.INTERNET"`
-* `"android.permission.ACCESS_NETWORK_STATE"`
-* `"android.permission.WAKE_LOCK"`
+* `"com.samsung.android.iap.permission.BILLING"`
 
 
 </div>
@@ -74,5 +90,5 @@ For Android, the following permissions/features are automatically added when usi
 
 ## Support
 
-* [https://analytics.google.com/](https://analytics.google.com/)
+* [https://developer.samsung.com/iap](https://developer.samsung.com/iap)
 * [Solar2D Forums](https://forums.solar2d.com/c/corona-marketplace/13)

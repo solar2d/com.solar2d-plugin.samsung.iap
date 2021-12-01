@@ -77,10 +77,10 @@ public class LuaLoader implements JavaFunction {
 		L.pushValue(-1);
 		fLibRef = L.ref(LuaState.REGISTRYINDEX);
 
-		L.pushBoolean(true);
+		L.pushBoolean(false);
 		L.setField(-2, "canLoadProducts");
 
-		L.pushBoolean(true);
+		L.pushBoolean(false);
 		L.setField(-2, "canMakePurchases");
 
 		L.pushBoolean(false);
@@ -112,6 +112,29 @@ public class LuaLoader implements JavaFunction {
 
 			if (!isPackageNameInstalled(StoreServices.SAMSUNG_MARKETPLACE_APP_PACKAGE_NAME)) {
 				Log.w("Corona", "Samsung Marketplace is not available or installed");
+				//fire init error
+				initDis.send(new CoronaRuntimeTask() {
+					@Override
+					public void executeUsing(CoronaRuntime runtime) {
+						LuaState l = runtime.getLuaState();
+						CoronaLua.newEvent(l, "init");
+						l.newTable();
+
+						l.pushBoolean(true);
+						l.setField(-2, "isError");
+						l.pushString("Samsung Marketplace Not Found");
+						l.setField(-2, "errorType");
+						l.pushString("Samsung Marketplace is not available or installed");
+						l.setField(-2, "errorString");
+
+						l.setField(-2, "transaction");
+						try {
+							CoronaLua.dispatchEvent(l, initLis, 0);
+						} catch (Exception e) {
+
+						}
+					}
+				});
 				return 0;
 			}
 
@@ -129,6 +152,7 @@ public class LuaLoader implements JavaFunction {
 			}else{
 				inAppHelper.setOperationMode(HelperDefine.OperationMode.OPERATION_MODE_PRODUCTION);
 			}
+			//change properties
 			fDispatcher.send(new CoronaRuntimeTask() {
 				@Override
 				public void executeUsing(CoronaRuntime runtime) {
@@ -142,7 +166,35 @@ public class LuaLoader implements JavaFunction {
 					l.pushBoolean(true);
 					l.setField(-2, "isActive");
 
+					l.pushBoolean(true);
+					l.setField(-2, "canLoadProducts");
+
+					l.pushBoolean(true);
+					l.setField(-2, "canMakePurchases");
+
 					l.pop(1);
+				}
+			});
+			//fire init event
+			initDis.send(new CoronaRuntimeTask() {
+				@Override
+				public void executeUsing(CoronaRuntime runtime) {
+					LuaState l = runtime.getLuaState();
+					CoronaLua.newEvent(l, "init");
+
+					l.newTable();
+					l.pushBoolean(false);
+					l.setField(-2, "isError");
+					l.pushString("initialized");
+					l.setField(-2, "state");
+					l.setField(-2, "transaction");
+
+
+					try {
+						CoronaLua.dispatchEvent(l, initLis, 0);
+					} catch (Exception e) {
+
+					}
 				}
 			});
 			return 0;
@@ -289,12 +341,11 @@ public class LuaLoader implements JavaFunction {
 				public void onPayment(ErrorVo _errorVo, PurchaseVo _purchaseVo) {
 					if (_errorVo != null) {
 						if (_purchaseVo != null && _errorVo.getErrorCode() == IapHelper.IAP_ERROR_NONE) {
-							Log.e("test", "run18888");
 							initDis.send(new CoronaRuntimeTask() {
 								@Override
 								public void executeUsing(CoronaRuntime runtime) {
 									LuaState l = runtime.getLuaState();
-									CoronaLua.newEvent(l, "init");
+									CoronaLua.newEvent(l, "storeTransaction");
 
 									l.newTable();
 
@@ -334,7 +385,7 @@ public class LuaLoader implements JavaFunction {
 								@Override
 								public void executeUsing(CoronaRuntime runtime) {
 									LuaState l = runtime.getLuaState();
-									CoronaLua.newEvent(l, "init");
+									CoronaLua.newEvent(l, "storeTransaction");
 
 									l.newTable();
 									if(_errorVo.getErrorCode() == IapHelper.IAP_PAYMENT_IS_CANCELED){
@@ -397,7 +448,7 @@ public class LuaLoader implements JavaFunction {
 										@Override
 										public void executeUsing(CoronaRuntime runtime) {
 											LuaState l = runtime.getLuaState();
-											CoronaLua.newEvent(l, "init");
+											CoronaLua.newEvent(l, "storeTransaction");
 
 											l.newTable();
 
@@ -438,7 +489,7 @@ public class LuaLoader implements JavaFunction {
 								@Override
 								public void executeUsing(CoronaRuntime runtime) {
 									LuaState l = runtime.getLuaState();
-									CoronaLua.newEvent(l, "init");
+									CoronaLua.newEvent(l, "storeTransaction");
 									l.newTable();
 
 									l.pushString("failed");
@@ -488,7 +539,7 @@ public class LuaLoader implements JavaFunction {
 										@Override
 										public void executeUsing(CoronaRuntime runtime) {
 											LuaState l = runtime.getLuaState();
-											CoronaLua.newEvent(l, "init");
+											CoronaLua.newEvent(l, "storeTransaction");
 											l.newTable();
 
 											l.pushString("consumed");
