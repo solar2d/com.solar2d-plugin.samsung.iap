@@ -1,4 +1,4 @@
-# samsung-iap.init()
+# store.init()
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__              [Function][api.type.Function]
@@ -7,7 +7,7 @@
 > __Keywords__           IAP, Samsung IAP, Samsung In App Purchase, init
 > __See also__          [store.loadProducts()][plugin.samsung-iap.loadProducts]
 >						[store.purchase()][plugin.samsung-iap.purchase]
->						[store.purchase()][plugin.samsung-iap.purchase]
+>						[store.loadProducts()][plugin.samsung-iap.purchase]
 >						[store.*][plugin.samsung-iap]
 > --------------------- ------------------------------------------------------------------------------------------
 

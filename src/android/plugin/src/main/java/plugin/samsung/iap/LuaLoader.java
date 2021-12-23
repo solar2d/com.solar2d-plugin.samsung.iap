@@ -455,9 +455,9 @@ public class LuaLoader implements JavaFunction {
 											l.pushString("restoreCompleted");
 											l.setField(-2, "state");
 											l.pushString(item.getPurchaseDate());
-											l.setField(-2, "originalDate");
+											l.setField(-2, "date");
 											l.pushString(item.getPaymentId());
-											l.setField(-2, "originalIdentifier");
+											l.setField(-2, "identifier");
 											l.pushString(item.getItemId());
 											l.setField(-2, "productIdentifier");
 											l.pushString(item.getJsonString());
@@ -580,7 +580,7 @@ public class LuaLoader implements JavaFunction {
 								@Override
 								public void executeUsing(CoronaRuntime runtime) {
 									LuaState l = runtime.getLuaState();
-									CoronaLua.newEvent(l, "init");
+									CoronaLua.newEvent(l, "storeTransaction");
 									l.newTable();
 
 									l.pushString("failed");

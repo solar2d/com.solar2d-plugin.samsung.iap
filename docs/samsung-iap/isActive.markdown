@@ -1,31 +1,20 @@
-# googleAnalytics.init()
+
+# store.isActive
 
 > --------------------- ------------------------------------------------------------------------------------------
-> __Type__              [Function][api.type.Function]
-> __Return value__      none
+> __Type__              [Boolean][api.type.Boolean]
 > __Revision__          [REVISION_LABEL](REVISION_URL)
-> __Keywords__          analytics, Google Analytics, googleAnalytics, init
-> __See also__          [googleAnalytics.logEvent()][plugin.googleAnalytics.logEvent]
->						[googleAnalytics.logScreenName()][plugin.googleAnalytics.logScreenName]
->						[googleAnalytics.*][plugin.googleAnalytics]
+> __Keywords__          Samsung, IAP, in-app purchases, isActive
+> __See also__          [store.init()][plugin.samsung-iap.init]
+>						[store.*][plugin.samsung-iap]
 > --------------------- ------------------------------------------------------------------------------------------
 
 
 ## Overview
 
-Initalizes the Google Analytics plugin. This step is mandatory before any other features or methods can be used.
+[Boolean][api.type.Boolean] property which can be used to confirm if the store has been properly initialized after calling [store.init()][plugin.samsung-iap.init]. This will be `true` upon successful initialization, `false` otherwise.
 
 
 ## Syntax
 
-	googleAnalytics.init( )
-
-
-## Example
-
-``````lua
-local googleAnalytics = require( "plugin.googleAnalytics" )
-
--- Initialize Google Analytics
-googleAnalytics.init( )
-``````
+	store.isActive
