@@ -35,6 +35,11 @@ local metadata =
 
       },
    },
+   coronaManifest = {
+       dependencies = {
+           ["shared.android.support.v7.appcompat"] = "com.coronalabs"
+       }
+   }
 
 }
 
