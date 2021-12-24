@@ -15,6 +15,15 @@ settings =
 	android =
 		{
 				minSdkVersion = 16,
+				manifestChildElements =
+        {
+            -- Array of strings
+            [[
+						<queries>
+					   <package android:name="com.sec.android.app.samsungapps" />
+					</queries>
+            ]],
+        },
 		},
 	iphone =
 	{
