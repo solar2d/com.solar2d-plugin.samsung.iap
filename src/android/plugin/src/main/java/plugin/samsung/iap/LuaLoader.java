@@ -102,7 +102,7 @@ public class LuaLoader implements JavaFunction {
 	}
 
 	private class init implements NamedJavaFunction {
-		
+
 		@Override
 		public String getName() {
 			return "init";

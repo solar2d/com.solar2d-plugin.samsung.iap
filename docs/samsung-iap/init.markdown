@@ -19,7 +19,7 @@ Initialize the Samsung IAP plugin and set store operation mode. This step is man
 
 ## Syntax
 
-	store.init( listener, operationMode )
+	store.init( listener [,operationMode] )
 
 ##### listener ~^(required)^~
 _[Listener][api.type.Listener]._ The listener that will handle [storeTransaction][plugin.samsung-iap.event.storeTransaction] events.

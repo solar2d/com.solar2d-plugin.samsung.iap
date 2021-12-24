@@ -1,26 +1,32 @@
 
-# store.consumePurchase()
+# store.purchase()
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__              [Function][api.type.Function]
 > __Return value__      none
 > __Revision__          [REVISION_LABEL](REVISION_URL)
-> __Keywords__          Samsung, IAP, in-app purchases, consumePurchase
-> __See also__          [store.purchase()][plugin.google-iap-v3.purchase]
+> __Keywords__          Samsung, IAP, in-app purchases, purchase
+> __See also__          [store.init()][plugin.samsung-iap.init]
+>						[store.*][plugin.samsung-iap]
 > --------------------- ------------------------------------------------------------------------------------------
 
 
 ## Overview
 
-This function "consumes" purchases and makes the item(s) available for purchase again.
+Initiates a purchase transaction on a provided product by sending out a purchase request to the store, then dispatches a [storeTransaction][plugin.samsung-iap.event.storeTransaction] event to the listener defined in [store.init()][plugin.samsung-iap.init].
 
-Note that some items are designed to be purchased only once and you should __not__ consume them. For example, if a purchase unlocks a new world within a game, it should be ineligible for future consumption. Alternatively, some items can be purchased multiple times, for example energy packs and gems &mdash; these type of items must be consumed before they can be purchased again.
 
+## Gotchas
+
+This call does not work for subscription purchases.
 
 
 ## Syntax
 
-	store.consumePurchase( productIdentifier )
+	store.purchase( productIdentifier [,passThroughParam]  )
 
 ##### productIdentifier ~^(required)^~
-_[String][api.type.String]._ String representing the product identifier of the item to consume.
+_[String][api.type.String]._ String representing the product identifier of the item to purchase.
+
+##### passThroughParam ~^(optional)^~
+_[String][api.type.String]._ An optional string, unique identifier (maximum: 255 bytes) assigned by your Android app to the purchase and payment transaction.
