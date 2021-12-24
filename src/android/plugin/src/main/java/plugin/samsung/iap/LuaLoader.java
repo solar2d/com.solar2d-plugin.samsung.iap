@@ -109,7 +109,10 @@ public class LuaLoader implements JavaFunction {
 		}
 		@Override
 		public int invoke(LuaState L) {
-
+			if(CoronaLua.isListener(L, 1, "init")){
+				initLis = CoronaLua.newRef(L, 1);
+				initDis = new CoronaRuntimeTaskDispatcher(L);
+			}
 			if (!isPackageNameInstalled(StoreServices.SAMSUNG_MARKETPLACE_APP_PACKAGE_NAME)) {
 				Log.w("Corona", "Samsung Marketplace is not available or installed");
 				//fire init error
@@ -140,10 +143,7 @@ public class LuaLoader implements JavaFunction {
 
 			inAppHelper = IapHelper.getInstance(CoronaEnvironment.getCoronaActivity());
 
-			if(CoronaLua.isListener(L, 1, "init")){
-				initLis = CoronaLua.newRef(L, 1);
-				initDis = new CoronaRuntimeTaskDispatcher(L);
-			}
+
 
 			if(L.isString(2) && L.toString(2) == "testMode"){
 				inAppHelper.setOperationMode(HelperDefine.OperationMode.OPERATION_MODE_TEST);

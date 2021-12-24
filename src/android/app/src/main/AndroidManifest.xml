@@ -26,7 +26,7 @@
 				 tools:replace="android:icon"
 	             >
 
-		<meta-data android:name="targetedAppStore" android:value="google" />
+		<meta-data android:name="targetedAppStore" android:value="s" />
 
 
 

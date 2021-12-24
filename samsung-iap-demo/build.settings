@@ -14,7 +14,6 @@ settings =
 	--]]
 	android =
 		{
-				useGoogleServicesJson = true,
 				minSdkVersion = 16,
 		},
 	iphone =
@@ -29,8 +28,7 @@ settings =
     {
         ["plugin.samsung.iap"] =
         {
-            publisherId = "tech.scotth",
-            marketplaceId = "rfk19n"
+            publisherId = "com.solar2d",
         },
 
     },
