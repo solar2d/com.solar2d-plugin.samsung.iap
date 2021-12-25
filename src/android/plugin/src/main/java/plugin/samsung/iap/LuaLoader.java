@@ -145,13 +145,14 @@ public class LuaLoader implements JavaFunction {
 
 
 
-			if(L.isString(2) && L.toString(2) == "testMode"){
+			if(L.isString(2) && L.toString(2).equals("testMode")){
 				inAppHelper.setOperationMode(HelperDefine.OperationMode.OPERATION_MODE_TEST);
-			}else if (L.isString(2) && L.toString(2) == "testFailureMode"){
+			}else if (L.isString(2) && L.toString(2).equals("testFailureMode")){
 				inAppHelper.setOperationMode(HelperDefine.OperationMode.OPERATION_MODE_TEST_FAILURE);
 			}else{
 				inAppHelper.setOperationMode(HelperDefine.OperationMode.OPERATION_MODE_PRODUCTION);
 			}
+
 			//change properties
 			fDispatcher.send(new CoronaRuntimeTask() {
 				@Override
@@ -239,6 +240,7 @@ public class LuaLoader implements JavaFunction {
 				L.pop(1);
 			}
 			if(!productIdString.equals("")){
+				Log.e("run123", productIdString);
 				inAppHelper.getProductsDetails(productIdString, new OnGetProductsDetailsListener() {
 					@Override
 					public void onGetProducts(ErrorVo _errorVo, ArrayList<ProductVo> _productList) {

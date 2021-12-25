@@ -65,7 +65,18 @@ To use this plugin, add an entry into the `plugins` table of `build.settings`. W
 ``````lua
 settings =
 {
-
+	android =
+	{
+			manifestChildElements =
+      {
+					--Needed for newer versions of Android
+          [[
+						<queries>
+						   <package android:name="com.sec.android.app.samsungapps" />
+						</queries>
+          ]],
+      },
+	},
 	plugins =
 	{
 		["plugin.samsung.iap"] =
