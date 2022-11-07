@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
           package="plugin.samsung.iap">
 
-
+    <permission android:name="com.samsung.android.iap.permission.BILLING"></permission>
     <application>
 
         <activity
